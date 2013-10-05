@@ -1,9 +1,9 @@
-==== Stripe Integration for WooCommerce ====
+==== Striper - Stripe Integration for WooCommerce ====
 Contributors: svoss
 Tags: woocommerce, stripe, payments, free stripe integration
 Requires at least: 3.0
 Tested up to: 3.6
-Stable tag: 0.1
+Stable tag: 0.2
 Donate link: https://blog.seanvoss.com/striper/
 License: GPLv2 or later
 
@@ -31,6 +31,8 @@ None at this time
 
 == Changelog ==
 
+= 0.2 =
+* Readme Update
 = 0.1 =
 * Initial Release
 
