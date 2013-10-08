@@ -3,7 +3,7 @@
 Plugin Name: Striper (Gateway using Stripe.js)
 Plugin URI: http://seanvoss.com/striper
 Description: Provides a Credit Card Payment Gateway through Stripe for woo-commerece.
-Version: 0.1
+Version: 0.2
 Author: Sean Voss
 Author URI: http://seanvoss.com/striper
 
