@@ -31,6 +31,9 @@ None at this time
 
 == Changelog ==
 
+= 0.4 =
+* Update Plugin Namespace.
+* Note: If upgrading will have to re-input stripe keys
 = 0.3 =
 * Update Links
 = 0.2 =
