@@ -9,7 +9,7 @@ require_once("lib/stripe-php/lib/Stripe.php");
 
 class Striper extends WC_Payment_Gateway
 {
-    protected $GATEWAY_NAME               = "Stripe";
+    protected $GATEWAY_NAME               = "Striper";
     protected $usesandboxapi              = true;
     protected $order                      = null;
     protected $transactionId              = null;
@@ -20,7 +20,7 @@ class Striper extends WC_Payment_Gateway
 
     public function __construct()
     {
-        $this->id              = 'Stripe';
+        $this->id              = 'Striper';
         $this->has_fields      = true;
 
         $this->init_form_fields();
