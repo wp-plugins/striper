@@ -3,7 +3,7 @@ Contributors: seanvoss
 Tags: woocommerce, stripe, payments, free stripe integration
 Requires at least: 3.0
 Tested up to: 3.6
-Stable tag: 0.4
+Stable tag: 0.5
 Donate link: https://blog.seanvoss.com/shop/striper/
 License: GPLv2 or later
 
@@ -30,7 +30,8 @@ None at this time
 None at this time
 
 == Changelog ==
-
+= 0.5 =
+* Fixes Live Plugin Key
 = 0.4 =
 * Update Plugin Namespace.
 * Note: If upgrading will have to re-input stripe keys
