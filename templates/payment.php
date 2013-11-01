@@ -58,7 +58,7 @@
 
   jQuery(function($) {
 
-    var $form = $('.checkout');
+    var $form = $('form.checkout');
     var stripeResponseHandler = function(status, response) {
 
     if (response.error) {
@@ -77,13 +77,13 @@
 
     }
   };
-    $('body').on('click', '.checkout input:submit', function(){
+    $('body').on('click', 'form.checkout input:submit', function(){
       // Make sure there's not an old token on the form
-      $('.checkout').find('[name=stripeToken]').remove()
+      $('form.checkout').find('[name=stripeToken]').remove()
     })
 
     // Bind to the checkout_place_order event to add the token
-    $('.checkout').bind('checkout_place_order', function(e){
+    $('form.checkout').bind('checkout_place_order', function(e){
       $form.find('.payment-errors').html('');
       $form.block({message: null,overlayCSS: {background: "#fff url(" + woocommerce_params.ajax_loader_url + ") no-repeat center",backgroundSize: "16px 16px",opacity: .6}});
 
