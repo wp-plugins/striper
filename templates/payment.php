@@ -58,7 +58,7 @@
 
   jQuery(function($) {
 
-    var $form = $('form.checkout');
+    var $form = $('form.checkout,form#order_review');
     var stripeResponseHandler = function(status, response) {
 
     if (response.error) {
@@ -77,10 +77,20 @@
 
     }
   };
+
+    $('body').on('click', 'form#order_review input:submit', function(){
+      // Make sure there's not an old token on the form
+      Stripe.setPublishableKey('<?= $this->publishable_key ?>');
+      Stripe.createToken($form, stripeResponseHandler);
+      return false;
+    });
+
+
     $('body').on('click', 'form.checkout input:submit', function(){
       // Make sure there's not an old token on the form
       $('form.checkout').find('[name=stripeToken]').remove()
     })
+
 
     // Bind to the checkout_place_order event to add the token
     $('form.checkout').bind('checkout_place_order', function(e){
