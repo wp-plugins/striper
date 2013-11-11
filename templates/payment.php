@@ -56,7 +56,8 @@
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 <script type="text/javascript">
 
-  jQuery(function($) {
+ var initStriper = function(){
+    jQuery(function($) {
 
     var $form = $('form.checkout,form#order_review');
     var stripeResponseHandler = function(status, response) {
@@ -107,5 +108,19 @@
       return false;
     });
   });
+};
+
+if(typeof jQuery=='undefined')
+{
+    var headTag = document.getElementsByTagName("head")[0];
+    var jqTag = document.createElement('script');
+    jqTag.type = 'text/javascript';
+    jqTag.src = 'https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js';
+    jqTag.onload = initStriper;
+    headTag.appendChild(jqTag);
+} else {
+   initStriper()
+}
+
 </script>
 

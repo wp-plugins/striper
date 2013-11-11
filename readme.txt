@@ -30,6 +30,8 @@ None at this time
 None at this time
 
 == Changelog ==
+= 0.8 =
+* Fixes loading jQuery if not present
 = 0.7 =
 * Fixes email payment
 = 0.6 =
