@@ -232,13 +232,16 @@ class Striper extends WC_Payment_Gateway
 
 }
 
-add_action('wp_ajax_capture_striper'     ,  'striper_order_status_completed');
+//add_action('wp_ajax_capture_striper'     ,  'striper_order_status_completed');
 
 function striper_order_status_completed($order_id = null)
 {
   global $woocommerce;
   if (!$order_id)
       $order_id = $_POST['order_id'];
+
+  $data = get_post_meta( $order_id );
+  $total = $data['_order_total'][0] * 100;
 
   $params = array();
   if(isset($_POST['amount']) && $amount = $_POST['amount'])
@@ -254,6 +257,10 @@ function striper_order_status_completed($order_id = null)
     {
       $tid = get_post_meta( $order_id, 'transaction_id', true);
       $ch = Stripe_Charge::retrieve($tid);
+      if($total < $ch->amount)
+      {
+          $params['amount'] = $total;
+      }
       $ch->capture($params);
     }
     catch(Stripe_Error $e)
@@ -280,23 +287,3 @@ function striper_add_creditcard_gateway($methods)
 add_filter('woocommerce_payment_gateways',                      'striper_add_creditcard_gateway');
 add_action('woocommerce_order_status_processing_to_completed',  'striper_order_status_completed' );
 
-
-add_action( 'add_meta_boxes', 'add_boxes');
-
-function add_boxes(){
-      add_meta_box( 'striper', __( 'Stripe - Capture', 'woocommerce' ), 'woocommerce_striper_meta_box', 'shop_order', 'normal', 'low' );
-}     
-      
-function woocommerce_striper_meta_box($post)
-{	global $woocommerce, $theorder, $wpdb;
-
-	if ( ! is_object( $theorder ) )
-		$theorder = new WC_Order( $post->ID );
-
-	$order = $theorder;
-
-	$data = get_post_meta( $post->ID );
-    
-    include_once('templates/admin_box.php');
-     // print sprintf("<label>Amount </label> <input name='capture_amount' value='%s' /><button id='#capture_striper' class='button' href='#' >Capture</button>&nbsp; <strong>Must be the same or less than original amount</strong>",esc_attr( $data['_order_total'][0] ), 'something');
-}

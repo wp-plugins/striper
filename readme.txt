@@ -3,7 +3,7 @@ Contributors: seanvoss
 Tags: woocommerce, stripe, payments, free stripe integration
 Requires at least: 3.0
 Tested up to: 3.6
-Stable tag: 0.10
+Stable tag: 0.11
 Donate link: https://blog.seanvoss.com/shop/striper/
 License: GPLv2 or later
 
@@ -30,6 +30,8 @@ None at this time
 None at this time
 
 == Changelog ==
+= 0.11 =
+* Moves Capture to default functionality, change price after authorize, it will automatically refund the difference
 = 0.10 =
 * Adds Capture to Admin Box
 = 0.9 =
