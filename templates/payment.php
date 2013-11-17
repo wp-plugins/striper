@@ -95,6 +95,11 @@
 
     // Bind to the checkout_place_order event to add the token
     $('form.checkout').bind('checkout_place_order', function(e){
+
+      if($('input[name=payment_method]:checked').val() != 'Striper'){
+          return true;
+      }
+
       $form.find('.payment-errors').html('');
       $form.block({message: null,overlayCSS: {background: "#fff url(" + woocommerce_params.ajax_loader_url + ") no-repeat center",backgroundSize: "16px 16px",opacity: .6}});
 
