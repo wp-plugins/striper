@@ -36,11 +36,14 @@ class Striper extends WC_Payment_Gateway
         $this->livePublishableKey = $this->settings['live_publishable_key'  ];
         $this->publishable_key    = $this->usesandboxapi ? $this->testPublishableKey : $this->livePublishableKey;
         $this->secret_key         = $this->usesandboxapi ? $this->testApiKey : $this->liveApiKey;
-        $this->capture            = strcmp($this->settings['debug'], 'yes') == 0;
+        $this->capture            = strcmp($this->settings['capture'], 'yes') == 0;
 
         // tell WooCommerce to save options
         add_action('woocommerce_update_options_payment_gateways_' . $this->id , array($this, 'process_admin_options'));
         add_action('admin_notices'                              , array(&$this, 'perform_ssl_check'    ));
+        wp_enqueue_script('the_striper_js', plugins_url('/striper.js',__FILE__) );
+        wp_enqueue_script('the_stripe_js', 'https://js.stripe.com/v2/' );
+
     }
 
     public function perform_ssl_check()
