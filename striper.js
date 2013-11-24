@@ -36,7 +36,7 @@
 
 
     // Bind to the checkout_place_order event to add the token
-    $('form.checkout').bind('checkout_place_order', function(e){
+    $('form.checkout').bind('checkout_place_order_Striper', function(e){
 
       if($('input[name=payment_method]:checked').val() != 'Striper'){
           return true;
