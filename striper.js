@@ -1,65 +1,61 @@
- var initStriper = function(){
-
+  var initStriper = function(){
     jQuery(function($) {
-
-
     var $form = $('form.checkout,form#order_review');
+        
+    var deferred = $.Deferred();
+    deferred.fail(function(){
+    
+    });
+
+    var delayForToken = function($form){
+        Stripe.card.createToken($form, stripeResponseHandler);
+        return deferred.promise();
+    }
     var stripeResponseHandler = function(status, response) {
+    $('form.checkout').find('[name=stripeToken]').remove()
 
     if (response.error) {
 
       // Show the errors on the form
-      $form.find('.payment-errors').text(response.error.message);
+      $form.find('.payment-errors').css({'color': 'red'}).text(response.error.message);
       // Unblock the form to re-enter data
       $form.unblock();
 
+      deferred.fail();
     } else {
       // Append the Token
       $form.append($('<input type="hidden" name="stripeToken" />').val(response.id));
 
-      //Re-Submit
-      $form.submit();
-
+      deferred.resolve();
     }
   };
 
-    $('body').on('click', 'form#order_review input:submit', function(){
-      // Make sure there's not an old token on the form
-      Stripe.setPublishableKey($('#stripe_pub_key').data('publishablekey'));
-      Stripe.createToken($form, stripeResponseHandler);
-      return false;
-    });
+    // Bind to the checkout_submit event to add the token
+    $('body').on('click', 'form.checkout input:submit', function(e){
 
-
-    $('body').on('click', 'form.checkout input:submit', function(){
-      // Make sure there's not an old token on the form
-      $('form.checkout').find('[name=stripeToken]').remove()
-    })
-
-
-    // Bind to the checkout_place_order event to add the token
-    $('form.checkout').bind('checkout_place_order_Striper', function(e){
-      if (window.striper) 
-      {
-        return;
-      }
-
+      $form = $('form.checkout');
       window.striper = true;
       if($('input[name=payment_method]:checked').val() != 'Striper'){
-          return true;
+         $form.submit();
       }
 
       $form.find('.payment-errors').html('');
-      $form.block({message: null,overlayCSS: {background: "#fff url(" + woocommerce_params.ajax_loader_url + ") no-repeat center",backgroundSize: "16px 16px",opacity: .6}});
 
       // Pass if we have a token
       if( $form.find('[name=stripeToken]').length)
+      {
+        $form.submit();
         return true;
+      }
+      e.preventDefault();
 
       Stripe.setPublishableKey($('#stripe_pub_key').data('publishablekey'));
-      Stripe.createToken($form, stripeResponseHandler)
-      // Prevent the form from submitting with the default action
-      return false;
+      return $.when(delayForToken($form)).then($.proxy(function(){
+       $form.submit();
+        return true;
+      },this), $.proxy(function(){
+        return false;
+      },this));
     });
   });
 };
@@ -75,3 +71,4 @@ if(typeof jQuery=='undefined')
 } else {
    initStriper()
 }
+

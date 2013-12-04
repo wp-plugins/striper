@@ -3,7 +3,7 @@ Contributors: seanvoss
 Tags: woocommerce, stripe, payments, free stripe integration
 Requires at least: 3.0
 Tested up to: 3.6
-Stable tag: 0.16
+Stable tag: 0.17
 Donate link: https://blog.seanvoss.com/shop/striper/
 License: GPLv2 or later
 
@@ -31,6 +31,8 @@ None at this time
 
 == Changelog ==
 
+= 0.17 =
+* Drastic change in how the JS code executes
 = 0.16 =
 * Doubling up on the JS code, hopefully to satisfy all users setups.
 = 0.15 =
