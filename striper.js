@@ -7,6 +7,14 @@
     
     });
 
+    $('body').on('click', 'form#order_review input:submit', function(){
+      // Make sure there's not an old token on the form
+      $('form#order_review').find('[name=stripeToken]').remove()
+      Stripe.setPublishableKey($('#stripe_pub_key').data('publishablekey'));
+      Stripe.createToken($form, stripeResponseHandler);
+      return false;
+    });
+
     var delayForToken = function($form){
         Stripe.card.createToken($form, stripeResponseHandler);
         return deferred.promise();
