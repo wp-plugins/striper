@@ -41,7 +41,7 @@ class Striper extends WC_Payment_Gateway
         // tell WooCommerce to save options
         add_action('woocommerce_update_options_payment_gateways_' . $this->id , array($this, 'process_admin_options'));
         add_action('admin_notices'                              , array(&$this, 'perform_ssl_check'    ));
-        wp_enqueue_script('the_striper_js', plugins_url('/striper.js',__FILE__) );
+        //wp_enqueue_script('the_striper_js', plugins_url('/striper.js',__FILE__) );
         wp_enqueue_script('the_stripe_js', 'https://js.stripe.com/v2/' );
 
     }
