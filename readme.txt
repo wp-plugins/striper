@@ -3,7 +3,7 @@ Contributors: seanvoss
 Tags: woocommerce, stripe, payments, free stripe integration
 Requires at least: 3.0
 Tested up to: 3.6
-Stable tag: 0.18
+Stable tag: 0.19
 Donate link: https://blog.seanvoss.com/shop/striper/
 License: GPLv2 or later
 
@@ -31,6 +31,8 @@ None at this time
 
 == Changelog ==
 
+= 0.19 =
+* Revent to 0.16, users continue having issues
 = 0.18 =
 * Fixes intermittant infinite loop, and fixes the image submit button
 = 0.17 =
