@@ -63,13 +63,15 @@
     // Add additional information to be passed to Stripe
     var stripeMap = {
 
-        billing_address_1: 'address_line1',
-        billing_address_2:'address_line2',
-        billing_city:'address_city',
-        billing_postcode: 'address_zip',
+        billing_address_1:  'address_line1',
+        billing_address_2:  'address_line2',
+        billing_city:       'address_city',
+        billing_country:    'address_country',
+        billing_state:      'address_state',
+        billing_postcode:   'address_zip',
     }
     var card_name = '';
-    $('form.checkout').find('input[id*=billing_]').each(function(idx,el){
+    $('form.checkout').find('input[id*=billing_],select[id*=billing_]').each(function(idx,el){
         var mapped = stripeMap[el.id];
         if (mapped)
         {
@@ -78,7 +80,7 @@
         }
         if(el.id == 'billing_first_name' || el.id == 'billing_last_name')
         {
-            card_name += $(el).val();
+            card_name += $(el).val() + ' ';
         }
         
         
