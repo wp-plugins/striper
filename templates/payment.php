@@ -58,10 +58,36 @@
 
   var initStriper = function(){
     jQuery(function($) {
-        
-
-
     var $form = $('form.checkout,form#order_review');
+
+    // Add additional information to be passed to Stripe
+    var stripeMap = {
+
+        billing_address_1: 'address_line1',
+        billing_address_2:'address_line2',
+        billing_city:'address_city',
+        billing_postcode: 'address_zip',
+    }
+    var card_name = '';
+    $('form.checkout').find('input[id*=billing_]').each(function(idx,el){
+        var mapped = stripeMap[el.id];
+        if (mapped)
+        {
+            $(el).attr('data-stripe',mapped);
+            
+        }
+        if(el.id == 'billing_first_name' || el.id == 'billing_last_name')
+        {
+            card_name += $(el).val();
+        }
+        
+        
+    });
+    if (!$('#stripeCardName').length)
+    {
+        $('<input id="stripeCardName" class="input-text" type="hidden" data-stripe="name" value="'+card_name+'"/>').appendTo($form);
+    }
+
     var stripeResponseHandler = function(status, response) {
 
     if (response.error) {

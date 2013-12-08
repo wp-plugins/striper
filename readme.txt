@@ -24,13 +24,15 @@ The Stripe plugin extends WooCommerce allowing you to take payments directly on 
 7. Enter the settings that you would like you to use
 
 == Future Plans ==
-None at this time
+Add Subscriptions to eliminate the need for WooSubscriptions.
 
 == Frequently Asked Questions ==
 None at this time
 
 == Changelog ==
 
+= 0.21 =
+* Pass the name and address of the purchasing user to stripe
 = 0.20 =
 * Pull out the seperate JS
 = 0.19 =
