@@ -66,6 +66,8 @@
         billing_address_1: 'address_line1',
         billing_address_2:'address_line2',
         billing_city:'address_city',
+        billing_country:'address_country',
+        billing_state: 'address_state',
         billing_postcode: 'address_zip',
     }
     var card_name = '';
@@ -78,7 +80,7 @@
         }
         if(el.id == 'billing_first_name' || el.id == 'billing_last_name')
         {
-            card_name += $(el).val();
+            card_name += $(el).val() + ' ';
         }
         
         
