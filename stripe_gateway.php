@@ -28,7 +28,7 @@ class Striper extends WC_Payment_Gateway
 
         $this->title              = $this->settings['title'];
         $this->description        = '';
-        $this->icon 		      = $this->settings['alternate_imageurl'] ?: WP_PLUGIN_URL . "/" . plugin_basename( dirname(__FILE__)) . '/images/credits.png';
+        $this->icon 		      = $this->settings['alternate_imageurl'] ? $this->settings['alternate_imageurl']  : WP_PLUGIN_URL . "/" . plugin_basename( dirname(__FILE__)) . '/images/credits.png';
         $this->usesandboxapi      = strcmp($this->settings['debug'], 'yes') == 0;
         $this->testApiKey 		  = $this->settings['test_api_key'  ];
         $this->liveApiKey 		  = $this->settings['live_api_key'  ];
