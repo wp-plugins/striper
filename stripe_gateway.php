@@ -1,5 +1,7 @@
 <?php
-require_once("lib/stripe-php/lib/Stripe.php");
+if (!class_exists('Stripe')) {
+    require_once("lib/stripe-php/lib/Stripe.php");
+}
 /*
  * Title   : Stripe Payment extension for WooCommerce
  * Author  : Sean Voss
