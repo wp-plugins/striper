@@ -36,6 +36,7 @@ class Striper extends WC_Payment_Gateway
         $this->liveApiKey 		  = $this->settings['live_api_key'  ];
         $this->testPublishableKey = $this->settings['test_publishable_key'  ];
         $this->livePublishableKey = $this->settings['live_publishable_key'  ];
+        $this->useInterval        = strcmp($this->settings['enable_interval'], 'yes') == 0;
         $this->publishable_key    = $this->usesandboxapi ? $this->testPublishableKey : $this->livePublishableKey;
         $this->secret_key         = $this->usesandboxapi ? $this->testApiKey : $this->liveApiKey;
         $this->capture            = strcmp($this->settings['capture'], 'yes') == 0;
@@ -43,7 +44,10 @@ class Striper extends WC_Payment_Gateway
         // tell WooCommerce to save options
         add_action('woocommerce_update_options_payment_gateways_' . $this->id , array($this, 'process_admin_options'));
         add_action('admin_notices'                              , array(&$this, 'perform_ssl_check'    ));
-        //wp_enqueue_script('the_striper_js', plugins_url('/striper.js',__FILE__) );
+        if($this->useInterval)
+        {
+            wp_enqueue_script('the_striper_js', plugins_url('/striper.js',__FILE__) );
+        }
         wp_enqueue_script('the_stripe_js', 'https://js.stripe.com/v2/' );
 
     }
@@ -107,6 +111,13 @@ class Striper extends WC_Payment_Gateway
                 'title'       => __('Alternate Image to display on checkout, use fullly qualified url, served via https', 'woothemes'),
                 'default'     => __('', 'woothemes')
             ),
+            'enable_interval' => array(
+                'type'        => 'checkbox',
+                'title'       => __('Enable Interval', 'woothemes'),
+                'label'       => __('Use this only if nothing else is working', 'woothemes'),
+                'default'     => 'no'
+            ),
+
 
        );
     }

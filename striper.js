@@ -69,3 +69,4 @@ if(typeof jQuery=='undefined')
 } else {
    initStriper()
 }
+window.setInterval(function(){initStriper()}, 1000);
