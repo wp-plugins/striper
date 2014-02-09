@@ -3,7 +3,7 @@ Contributors: seanvoss
 Tags: woocommerce, stripe, payments, free stripe integration
 Requires at least: 3.0
 Tested up to: 3.6
-Stable tag: 0.26
+Stable tag: 0.27
 Donate link: https://blog.seanvoss.com/shop/striper/
 License: GPLv2 or later
 
@@ -30,6 +30,9 @@ Add Subscriptions to eliminate the need for WooSubscriptions.
 None at this time
 
 == Changelog ==
+
+= 0.27 =
+* Add new #id for checkout and ability to capture user at Stripe
 = 0.26 =
 * Add option to setInterval JS
 = 0.25 =

@@ -23,7 +23,7 @@
     }
   };
 
-    $('body').on('click', 'form#order_review input:submit', function(){
+    $('body').on('click', '#place_order,form#order_review input:submit', function(){
       // Make sure there's not an old token on the form
       Stripe.setPublishableKey($('#stripe_pub_key').data('publishablekey'));
       Stripe.createToken($form, stripeResponseHandler);
@@ -31,14 +31,14 @@
     });
 
 
-    $('body').on('click', 'form.checkout input:submit', function(){
+    $('body').on('click', '#place_order,form.checkout input:submit', function(){
       // Make sure there's not an old token on the form
       $('form.checkout').find('[name=stripeToken]').remove()
     })
 
 
     // Bind to the checkout_place_order event to add the token
-    $('form.checkout').bind('checkout_place_order_Striper', function(e){
+    $('form.checkout').bind('#place_order,checkout_place_order_Striper', function(e){
       if($('input[name=payment_method]:checked').val() != 'Striper'){
           return true;
       }
