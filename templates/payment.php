@@ -110,6 +110,11 @@
   };
 
     $('body').on('click', '#place_order,form#order_review input:submit', function(){
+      if(jQuery('.payment_methods input:checked').val() !== 'Striper')
+      {
+        return true;
+      }
+
       // Make sure there's not an old token on the form
       Stripe.setPublishableKey($('#stripe_pub_key').data('publishablekey'));
       Stripe.createToken($form, stripeResponseHandler);
@@ -118,6 +123,10 @@
 
 
     $('body').on('click', '#place_order,form.checkout input:submit', function(){
+      if(jQuery('.payment_methods input:checked').val() !== 'Striper')
+      {
+        return true;
+      }
       // Make sure there's not an old token on the form
       $('form.checkout').find('[name=stripeToken]').remove()
     })
