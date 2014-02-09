@@ -202,22 +202,16 @@ class Striper extends WC_Payment_Gateway
     public function process_payment($order_id)
     {
         global $woocommerce;
-        $this->order        = &new WC_Order($order_id);
+        $this->order        = new WC_Order($order_id);
         if ($this->send_to_stripe())
         {
           $this->completeOrder();
-          return array(
-            'result'   => 'success',
-            'redirect' => add_query_arg(
-              'order',
-              $this->order->id,
-              add_query_arg(
-                  'key',
-                  $this->order->order_key,
-                  get_permalink(get_option('woocommerce_thanks_page_id'))
-              )
-            )
-          );
+
+            $result = array(
+                'result' => 'success',
+                'redirect' => $this->get_return_url($this->order)
+            );
+          return $result;
         }
         else
         {
