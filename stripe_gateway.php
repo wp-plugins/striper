@@ -143,7 +143,14 @@ class Striper extends WC_Payment_Gateway
         $body = $e->getJsonBody();
         $err  = $body['error'];
         error_log('Stripe Error:' . $err['message'] . "\n");
-        $woocommerce->add_error(__('Payment error:', 'woothemes') . $err['message']);
+        if (function_exists('wc_add_notice'))
+        {
+           wc_add_notice( $err['message'], $notice_type = 'error' );
+        }
+        else
+        {
+          $woocommerce->add_error(__('Payment error:', 'woothemes') . $err['message']);
+        }
         return false;
       }
     }
@@ -171,7 +178,15 @@ class Striper extends WC_Payment_Gateway
         else
         {
           $this->markAsFailedPayment();
-          $woocommerce->add_error(__('Transaction Error: Could not complete your payment'), 'woothemes');
+
+          if (function_exists('wc_add_notice'))
+          {
+             wc_add_notice(__('Transaction Error: Could not complete your payment'), $notice_type = 'error' );
+          }
+          else
+          {
+            $woocommerce->add_error(__('Transaction Error: Could not complete your payment'), 'woothemes');
+          }
         }
     }
 
@@ -251,7 +266,15 @@ function striper_order_status_completed($order_id)
       $body = $e->getJsonBody();
       $err  = $body['error'];
       error_log('Stripe Error:' . $err['message'] . "\n");
-      $woocommerce->add_error(__('Payment error:', 'woothemes') . $err['message']);
+
+      if (function_exists('wc_add_notice'))
+      {
+         wc_add_notice( $err['message'], $notice_type = 'error' );
+      }
+      else
+      {
+        $woocommerce->add_error(__('Payment error:', 'woothemes') . $err['message']);
+      }
       return null;
     }
    return true;
