@@ -130,6 +130,7 @@ class Striper extends WC_Payment_Gateway
           "description" => $data['card']['name'],
           "capture"     => !$this->capture,
         ));
+error_log(var_export($charge,1));
         $this->transactionId = $charge['id'];
 
         //Save data for the "Capture"
@@ -163,17 +164,9 @@ class Striper extends WC_Payment_Gateway
         {
           $this->completeOrder();
           return array(
-            'result'   => 'success',
-            'redirect' => add_query_arg(
-              'order',
-              $this->order->id,
-              add_query_arg(
-                  'key',
-                  $this->order->order_key,
-                  get_permalink(get_option('woocommerce_thanks_page_id'))
-              )
-            )
-          );
+              'result' => 'success',
+              'redirect' => $this->get_return_url( $this->order )
+              );
         }
         else
         {

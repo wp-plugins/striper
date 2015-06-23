@@ -80,8 +80,12 @@
   };
 
     $('body').on('click', 'form#order_review input:submit', function(){
+
+       if($('input[name=payment_method]:checked').val() != 'Striper'){
+           return true;
+       }
       // Make sure there's not an old token on the form
-      Stripe.setPublishableKey('<?= $this->publishable_key ?>');
+      Stripe.setPublishableKey('<?php echo $this->publishable_key ?>');
       Stripe.createToken($form, stripeResponseHandler);
       return false;
     });
@@ -95,6 +99,10 @@
 
     // Bind to the checkout_place_order event to add the token
     $('form.checkout').bind('checkout_place_order', function(e){
+
+     if($('input[name=payment_method]:checked').val() != 'Striper'){
+         return true;
+     }
       $form.find('.payment-errors').html('');
       $form.block({message: null,overlayCSS: {background: "#fff url(" + woocommerce_params.ajax_loader_url + ") no-repeat center",backgroundSize: "16px 16px",opacity: .6}});
 
@@ -102,7 +110,7 @@
       if( $form.find('[name=stripeToken]').length)
         return true;
 
-      Stripe.setPublishableKey('<?= $this->publishable_key ?>');
+      Stripe.setPublishableKey('<?php echo $this->publishable_key ?>');
       Stripe.createToken($form, stripeResponseHandler)
       // Prevent the form from submitting with the default action
       return false;
